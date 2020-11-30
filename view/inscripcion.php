@@ -27,10 +27,10 @@
         </div>
       </div>
       <h2>Inscripción</h2>
-      <form action="./inscrito.php" method="POST" onsubmit="return validarFor()">
+      <form action="./inscrito.php" method="POST" onsubmit="validacionForm()">
         <div>
           <p>DNI:</p><input type="text" id="dni" name="dni" class ="data" Placeholder="DNI"><br>
-          <p>Nombre y apellido(s)</p><input type="text" id="nombre" name="nombre" class ="data" Placeholder="Nombre"  >
+          <p>Nombre y apellido(s)</p><input type="text" id="nombre" name="nombre" class ="data" Placeholder="Nombre"> <input type="text" id="apellido1" name="apellido1" class ="data" Placeholder="Apellido"  >
           <p>Fecha de nacimiento</p><input type="date" id="fecha_nac" name="fecha_nac" class ="data" Placeholder="Fecha de nacimiento: DD/MM/AAAA" ><br>
           <p>Dirección de eMail</p><input type="email" id="email" name="email" class ="data" Placeholder="eMail" ><br>
         </div>
@@ -41,7 +41,7 @@
             <option value="femenino">Femenino</option>
         </select>
         <br>
-        <p>Haga click en la siguiente casilla si su estado vital es de zombie</p>
+        <p>Haga click en la siguiente casilla si su estado no-vital es de zombie</p>
         <input type ="checkbox" id="zombie" name="zombie">
         <label for="zombie">Sí, soy un zombie.</label><br><br>
         <input type="submit" value="Registrarse">
