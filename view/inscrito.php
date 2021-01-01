@@ -16,19 +16,9 @@ if (isset($_POST['nombre'])
  && isset($_POST['email'])
  && isset($_POST['genero'])
  && isset($_POST['dni'])){
- //$categoria=($_POST['fecha_nac']); 
- //calcularCategoria($categoria); 
- echo "IF"; 
- echo ($_POST['nombre']); 
- echo ($_POST['apellido1']); 
- echo ($_POST['fecha_nac']);
- echo ($_POST['email']); 
- echo ($_POST['genero']); 
- echo ($_POST['dni']);  
- echo $categoria; 
-/*
+
     try {
-        //Comienza la tr($_POST['fecha_nac']);ansacción
+        //Comienza la transacción
         $pdo->beginTransaction(); 
         $query="INSERT INTO `participante` (`nom_part`,`apellido1_part`, `edad_part`, `email_part`, `genero_part`,`zombie_part`,`dni_part`) VALUES (?,?,?,?,?,?,?);";
         $sentencia=$pdo->prepare($query);
@@ -45,11 +35,15 @@ if (isset($_POST['nombre'])
         $sentencia->bindParam(5,$genero);
         $sentencia->bindParam(6,$zombie);
         $sentencia->bindParam(7,$dni);
-        //Falta la inscripción del participante registarlo en inscripción.  La categoria se recoge en $categoria y hay que recoger el ID de la carrera. 
-
-        $id_persona = $pdo->lastInsertId();
+        //Falta la inscripción del participante y registarlo en inscripción.  La categoria se recoge en $categoria y hay que recoger el ID de la carrera. 
         $sentencia->execute();
-        $query2="INSERT INTO inscripcion ()"; 
+        //Inserción de la inscripción del participante
+        $query2="INSERT INTO `inscripcion`(`pago_insc`, `dorsal_insc`, `id_edic`, `id_part`, `id_cat`) VALUES (1,1,
+        (SELECT id_edic FROM edicion WHERE finalizada_edic = 0),
+        (SELECT id_part FROM participante WHERE dni_part = '{$dni}'),
+        (SELECT id_cat from categoria WHERE id_cat={$categoria}))";  
+        $sentencia2=$pdo->prepare($query2);
+        $sentencia2->execute();
         echo "todo bien";
         //hacer todas las sentencias a la vez
         $pdo->commit();
@@ -62,7 +56,6 @@ if (isset($_POST['nombre'])
 }else{
     //Por que puede que los duendes de la informática me hagan una de las suyas y todo se vaya al carajo: 
     header('Location:../index.php');
- */
 }
 function calcularCategoria($fecha){
     $fecha; 
@@ -70,7 +63,7 @@ function calcularCategoria($fecha){
     $fechaUNIX=strtotime($fecha); 
     $restante=$ahoraUNIX-$fechaUNIX;
     $dias=$restante/86400; 
-    $años=floor($dias/365); 
+    $fecha=floor($dias/365); 
     if ($fecha>51){
         $categoria=5; 
     }else if($fecha >19){
@@ -79,7 +72,8 @@ function calcularCategoria($fecha){
         $categoria=3; 
     }else if ($fecha>7) {
         $categoria=2; 
-    }else{$categoria=1; 
+    }else{
+        $categoria=1; 
     }
     //¿Tengo que devolver categoria?
     return $categoria; 

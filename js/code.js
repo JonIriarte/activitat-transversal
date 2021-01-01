@@ -1,4 +1,4 @@
-window.onload=function(){
+window.onload = function() {
     document.getElementById('dni').addEventListener("focusout", validarDNI);
 }
 
@@ -58,17 +58,15 @@ function validacionForm() {
         document.getElementById("dni").style.border = "initial";
         //Insertar comprobación para el DNI 
         validarDNI(dni);
-        
-    } else {
-        document.getElementById("dni").style.border = 'solid red 1px';
-        definido = false;
-        var faltan = faltan + " Número de DNI";
-    }
+
+    } else {}
     if (definido == false) {
         document.getElementById("message").innerHTML = "Rellena los campos que faltan:  " + faltan;
 
     } else {
+        console.log("Definido = " + definido);
         return definido;
+
     }
 }
 
@@ -137,8 +135,8 @@ function validarDNI() {
         }
         //Comprobación de si el DNI y la letra son correctos.     
     }
-    if ((carnet.value.length ==9) && (letra==control[dni % 23])) {
-        console.log(letra+' , '+ dni); 
+    if ((carnet.value.length == 9) && (letra == control[dni % 23])) {
+        console.log(letra + ' , ' + dni);
         carnet.style.border = "solid green 2px";
         return true;
     } else {
@@ -147,12 +145,3 @@ function validarDNI() {
     }
 
 }
-//Recorrer todos los inputs en JS con un foreach
-/*
-function validarFor() {
-    var inputs = document.getElementsByClassName('data');
-    for (let i = 0; i < inputs.length; i++) {
-        if
-    }
-    return false;
-}*/
