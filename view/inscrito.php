@@ -38,16 +38,26 @@ if (isset($_POST['nombre'])
         //Falta la inscripción del participante y registarlo en inscripción.  La categoria se recoge en $categoria y hay que recoger el ID de la carrera. 
         $sentencia->execute();
         //Inserción de la inscripción del participante
-        $query2="INSERT INTO `inscripcion`(`pago_insc`, `dorsal_insc`, `id_edic`, `id_part`, `id_cat`) VALUES (1,1,
+
+        //Control del número de dorsal
+        $dorsal="SELECT dorsal_insc FROM `inscripcion` ORDER BY id_insc DESC LIMIT 1"; 
+        $dorsalquery=$pdo->prepare($dorsal);
+        $dorsalquery->execute(); 
+        //Devolver solo una columna de la tabla inscripcion 
+        $respuestadorsal=$dorsalquery->fetchAll(PDO::FETCH_COLUMN);
+        //Como es un array de 0 posiciones tengo que llamar a la posición [0]: 
+        $dorsalinsc=$respuestadorsal[0]+1; 
+        $query2="INSERT INTO `inscripcion`(`pago_insc`, `dorsal_insc`, `id_edic`, `id_part`, `id_cat`) VALUES (1,{$dorsalinsc},
         (SELECT id_edic FROM edicion WHERE finalizada_edic = 0),
         (SELECT id_part FROM participante WHERE dni_part = '{$dni}'),
         (SELECT id_cat from categoria WHERE id_cat={$categoria}))";  
         $sentencia2=$pdo->prepare($query2);
         $sentencia2->execute();
-        echo "todo bien";
         //hacer todas las sentencias a la vez
         $pdo->commit();
+        //Redirigir a un sitico guay donde se vean todos los datos: 
         
+
     } catch (Exception $ex) {
        // Reconocer un error y no hacer los cambios 
         $pdo->rollback();
@@ -75,6 +85,5 @@ function calcularCategoria($fecha){
     }else{
         $categoria=1; 
     }
-    //¿Tengo que devolver categoria?
     return $categoria; 
     }
