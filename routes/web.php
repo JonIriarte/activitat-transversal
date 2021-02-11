@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\InscripcionController; 
 
 /*
 |--------------------------------------------------------------------------
@@ -12,7 +13,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+//Página principal
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
+//Redirección a la página de inscripción
+Route::get('/inscripcion', [InscripcionController::class, 'create']);
+//Redirección a la página en la que se insertan los datos en la BD
+Route::post('/inscrito', [InscripcionController::class,'store']); 
