@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\cr;
 use Illuminate\Http\Request;
+use App\Http\Requests\Inscripcion;
 //Basta con poner lo de debajo para que busque la base de datos. No hace falta poner toda la ruta. 
 use DB; 
 
@@ -36,7 +37,7 @@ class InscripcionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(inscripcion $request)
     {
         $inscripcion=$request->except('_token','Registrarse'); 
         //return ($inscripcion); 
@@ -45,13 +46,14 @@ class InscripcionController extends Controller
         }else{
             $zombie=0;  
         }
+        return ($inscripcion); 
          //return $zombie; 
-        try {
-            DB::table('participante')->insertGetId(['nom_part'=>$inscripcion['nombre'], 'apellido1_part'=>$inscripcion['apellido1'],  'edad_part'=>$inscripcion['fecha_nac'], 'email_part'=>$inscripcion['email'], 'genero_part'=>$inscripcion['genero'],'dni_part'=>$inscripcion['dni'], 'zombie_part'=>$zombie]);
-            return view('inscrito'); 
-        } catch (\Throwable $th) {
-            return($th); 
-        }
+        // try {
+        //     DB::table('participante')->insertGetId(['nom_part'=>$inscripcion['nombre'], 'apellido1_part'=>$inscripcion['apellido1'],  'edad_part'=>$inscripcion['fecha_nac'], 'email_part'=>$inscripcion['email'], 'genero_part'=>$inscripcion['genero'],'dni_part'=>$inscripcion['dni'], 'zombie_part'=>$zombie]);
+        //     return view('inscrito'); 
+        // } catch (\Throwable $th) {
+        //     return($th); 
+        // }
     }
 
     /**
@@ -98,4 +100,9 @@ class InscripcionController extends Controller
     {
         //
     }
+    public function inscripcionCategoria(){
+        
+
+}
+
 }

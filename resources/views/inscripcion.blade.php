@@ -27,6 +27,16 @@
         </div>
       </div>
       <h2>Inscripción</h2>
+      <!-- Errores de validación Laravel-->
+      @if ($errors->any())
+                <div>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{$error}}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
       <form action="{{url('inscrito')}}" method="POST" onsubmit="validacionForm()">
         <div>
           @csrf
@@ -45,6 +55,7 @@
         <p>Haga click en la siguiente casilla si su estado no-vital es de zombie.</p>
         <input type ="checkbox" id="zombie" name="zombie">
         <label for="zombie">Sí, soy un zombie.</label><br><br>
+        <input type="hidden" id="categoria" value="" name="categoria">
         <input type="submit" value="Registrarse">
         <p id="message"></p>
       </form> 

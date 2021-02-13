@@ -15,11 +15,11 @@ function validacionForm() {
     //Variable para ver qué campos faltan
     var faltan = "";
 
-    console.log(nombre);
-    console.log(apellido1);
-    console.log(dni);
-    console.log(fecha);
-    console.log(email);
+    // console.log(nombre);
+    // console.log(apellido1);
+    // console.log(dni);
+    // console.log(fecha);
+    // console.log(email);
 
 
 
@@ -64,13 +64,13 @@ function validacionForm() {
         document.getElementById("message").innerHTML = "Rellena los campos que faltan:  " + faltan;
 
     } else {
-        console.log("Definido = " + definido);
         return definido;
 
     }
 }
 
 function comprobarCategoria(fecha) {
+    campoCategoria = document.getElementById('categoria');
     //Hay que cambiar la fecha por la del día de la carrera.
     // Ahora mismo hace el cálculo sobre la fecha en la que se hace a inscripción
     var now = (new Date().getTime()) / 1000;
@@ -83,7 +83,6 @@ function comprobarCategoria(fecha) {
     //console.log("Días vividos " + dias);
     categoria = Math.floor(dias / 365);
     //Mostrar la cantidad de años: 
-    console.log("AÑOS " + categoria);
     if (categoria > 51) {
         id_cat = 5;
         alert(" Te has inscrito en la categoría Senior");
@@ -100,8 +99,9 @@ function comprobarCategoria(fecha) {
         id_cat = 1;
         alert("Te has inscrito en la categoría Alevín");
     }
+
     //¿Se puede devolver el valor de la variable al php?
-    return id_cat;
+    campoCategoria.value = id_cat;
 }
 
 function validarDNI() {
@@ -136,7 +136,7 @@ function validarDNI() {
         //Comprobación de si el DNI y la letra son correctos.     
     }
     if ((carnet.value.length == 9) && (letra == control[dni % 23])) {
-        console.log(letra + ' , ' + dni);
+        //console.log(letra + ' , ' + dni);
         carnet.style.border = "solid green 2px";
         return true;
     } else {
